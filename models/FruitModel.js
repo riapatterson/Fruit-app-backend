@@ -1,4 +1,4 @@
-const fruitsJSONData = require("../fruits.json");
+const fruitsArray = require("../fruits.json");
 
 class FruitsModel {
     constructor(fruit) {
@@ -11,11 +11,11 @@ class FruitsModel {
     }
 
     static showAllFruits() {
-        return fruitsJSONData.map(q => new FruitsModel(q));
+        return fruitsArray.map(q => new FruitsModel(q));
     }
 
     static showFruit(name) {
-        const fruits = fruitsJSONData.filter(fruit =>
+        const fruits = fruitsArray.filter(fruit =>
             fruit.name.toLowerCase().startsWith(name.toLowerCase())
         );
         if (fruits.length > 0) {
@@ -29,11 +29,25 @@ class FruitsModel {
         const newFruit = data;
         console.log(newFruit)
 
-        newFruit["id"] = fruits.length + 1;
+        newFruit["id"] = fruitsArray.length + 1;
 
-        FruitsModel.push(newFruit);
+        fruitsArray.push(newFruit);
 
-        return new Fruit(newFruit)
+        return new FruitsModel(newFruit)
+    };
+
+     static create(data) {
+        const newFruit = data;
+        const fruit = fruitsArray.find((fruit) => fruit.name.toLowerCase() == data.name.toLowerCase());
+  
+          if (fruit) {
+              throw "The fruit already exists.";
+          } else {
+              newFruit["id"] = fruitsArray.length + 1;
+              fruitsArray.push(newFruit);
+        
+              return new FruitsModel(newFruit)
+          }
     };
 }
 
