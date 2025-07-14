@@ -10,17 +10,18 @@ class FruitsModel {
         this.nutritions = fruit.nutritions;
     }
 
-    static showAll() {
+    static showAllFruits() {
         return fruitsJSONData.map(q => new FruitsModel(q));
     }
 
-    static show(name) {
-        const fruit = fruitsJSONData.find((fruit) => fruit.name.toLowerCase() == name);
-
-        if (fruit) {
-            return new FruitsModel(fruit);
+    static showFruit(name) {
+        const fruits = fruitsJSONData.filter(fruit =>
+            fruit.name.toLowerCase().startsWith(name.toLowerCase())
+        );
+        if (fruits.length > 0) {
+            return fruits.map(fruit => new FruitsModel(fruit));
         } else {
-            throw "The fruit doesn't exist.";
+            throw "No fruits found starting with that name.";
         }
     }
 }
