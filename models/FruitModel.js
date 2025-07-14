@@ -24,6 +24,17 @@ class FruitsModel {
             throw "No fruits found starting with that name.";
         }
     }
+
+    static create(data) {
+        const newFruit = data;
+        console.log(newFruit)
+
+        newFruit["id"] = fruits.length + 1;
+
+        FruitsModel.push(newFruit);
+
+        return new Fruit(newFruit)
+    };
 }
 
 module.exports = FruitsModel;
